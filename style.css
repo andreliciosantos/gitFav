@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+
+  --ff-primary: 'Roboto', sans-serif;
+  --ff-secondary: 'Roboto Mono', monospace;
+  --text-color: #e1e1e6;
+  --placeHolder-color: #7c7c8a;
+  --text-remove-color: #f75a68;
+  --button-color: #065E7C;
+
+  --hue: 194;
+  --backgound-color: black;
+  --primary-color: #06181C;
+  --table-th-color: #092D38;
+  --secondary-color: rgb(6, 22, 27);
+  
+}
+
+body * {
+  font-family: var(--ff-primary);
+
+}
+
+body {
+  background-color: var(--backgound-color);
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--button-color);
+  cursor: pointer;
+}
+
+/* Classe de acessibilidade */
+.sr-only {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0px;
+  border: 0;
+  appearance: none;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+}
+
+#app {
+  padding: 2rem;
+  max-width: 51rem;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  margin: 2.5rem 0;
+}
+
+header h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search input {
+  height: 3.2rem;
+  border: 1px solid #ccc;
+  border-radius: .4rem 0 0 .4rem;
+  padding: 0 .8rem;
+}
+
+.search button {
+  border-radius: 0 .4rem .4rem 0;
+  height: 3.2rem;
+  border: none;
+  padding: 0 1rem;
+}
+
+.search button:hover {
+  filter: brightness(1.3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  box-shadow: 0 1rem 2rem -1rem rgba(1, 1, 1, 0.3);
+}
+
+table * {
+  font-size: 1.4rem;
+  color: var(--text-color);
+}
+
+table th {
+  background-color: var(--primary-color);
+  text-align: left;
+  font-weight: normal;
+  padding: 1.5rem;
+  background: var(--table-th-color);
+}
+
+/* pseudo-class */
+table th:first-child {
+  border-top-left-radius: .4rem;
+}
+
+table th:last-child{
+  border-top-right-radius: .4rem;
+}
+
+table tr {
+  background: var(--primary-color);
+}
+
+/*  tr = colunas // odd = impares  even = pares*/
+table tr:nth-child(odd){
+  background: var(--secondary-color);
+}
+
+table td {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+td.user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+td.user a {
+  text-decoration: none;
+}
+
+td.user a p {
+  font-weight: bold;
+}
+
+td.repositories, td.followers {
+  font-weight: bold;
+}
+
+td .remove {
+  background: none;
+  border: none;
+
+  color: red;
+}
+
+td.user img {
+  width: 5rem;
+  height: 5rem;
+
+  object-fit: cover;
+  border-radius: 50%;
+}
