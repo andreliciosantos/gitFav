@@ -18,7 +18,7 @@
   --backgound-color: black;
   --primary-color: #06181C;
   --table-th-color: #092D38;
-  --secondary-color: rgb(6, 22, 27);
+  --secondary-color: rgba(6, 22, 27, 0.50);
   
 }
 
@@ -31,11 +31,6 @@ body {
   background-color: var(--backgound-color);
   font-size: 1.6rem;
   color: var(--text-color);
-}
-
-button {
-  background-color: var(--button-color);
-  cursor: pointer;
 }
 
 /* Classe de acessibilidade */
@@ -54,8 +49,14 @@ button {
 
 #app {
   padding: 2rem;
-  max-width: 51rem;
+  max-width: 112rem;
   margin: 0 auto;
+}
+
+.wrapper-table {
+  border: 1px solid #4A808C;
+  border-radius: 1.2rem;
+  overflow: hidden;
 }
 
 header {
@@ -63,7 +64,7 @@ header {
   align-items: center;
   justify-content: space-between;
   
-  margin: 2.5rem 0;
+  margin: 2.5rem 0 6rem;
 }
 
 header h1 {
@@ -74,31 +75,70 @@ header h1 {
 .search {
   display: flex;
   align-items: center;
+  gap: .8rem;
 }
 
 .search input {
-  height: 3.2rem;
-  border: 1px solid #ccc;
-  border-radius: .4rem 0 0 .4rem;
+  height: 4.8rem;
+  width: 46.2rem;
+  border: none;
+  border-radius: .5rem;
   padding: 0 .8rem;
+  background-color: var(--primary-color);
+  
+  font-family: Roboto;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.search input::placeholder {
+  color: var(--placeHolder-color);
 }
 
 .search button {
-  border-radius: 0 .4rem .4rem 0;
-  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  border-radius: .5rem;
+  height: 4.8rem;
   border: none;
-  padding: 0 1rem;
+  padding: 1.2rem 3.2rem;
+  background-color: var(--button-color);
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: white;
+
+  transition: all 200ms;
 }
 
-.search button:hover {
-  filter: brightness(1.3);
+.search button img{
+  width: 100px;
+  height: 100px;
+}
+
+.search button svg path {
+  transition: all 200ms;
+}
+
+.search button:hover{
+  background-color: white;
+  color: var(--button-color);
+}
+
+.search button:hover svg path {
+  fill: var(--button-color);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-
-  box-shadow: 0 1rem 2rem -1rem rgba(1, 1, 1, 0.3);
 }
 
 table * {
@@ -107,34 +147,44 @@ table * {
 }
 
 table th {
-  background-color: var(--primary-color);
+  background-color: var(--table-th-color);
   text-align: left;
   font-weight: normal;
   padding: 1.5rem;
-  background: var(--table-th-color);
-}
 
-/* pseudo-class */
-table th:first-child {
-  border-top-left-radius: .4rem;
-}
-
-table th:last-child{
-  border-top-right-radius: .4rem;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%;
 }
 
 table tr {
-  background: var(--primary-color);
-}
-
-/*  tr = colunas // odd = impares  even = pares*/
-table tr:nth-child(odd){
   background: var(--secondary-color);
 }
 
+/*  tr = colunas // odd = impares  even = pares*/
+table tr:nth-child(even){
+  background: var(--primary-color);
+  border-top: 1px solid #4A808C;
+  border-bottom: 1px solid #4a808c;
+}
+
+table tr:last-child {
+  border-bottom: none;
+}
+
 table td {
-  padding: 1.5rem;
+  padding: 2.4rem 4rem 2.4rem;
   text-align: left;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%;
+}
+
+table td span {
+  font-weight: 400;
 }
 
 td.user {
@@ -158,8 +208,19 @@ td.repositories, td.followers {
 td .remove {
   background: none;
   border: none;
+  cursor: pointer;
 
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%;
   color: red;
+
+  transition: all 200ms;
+}
+
+td .remove:hover {
+  color: rgb(131, 3, 3);
 }
 
 td.user img {
