@@ -59,6 +59,32 @@ body {
   overflow: hidden;
 }
 
+.emptyState {
+  position: absolute;
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+  justify-content: center;
+
+  color: #4E5455;
+  font-family: var(--ff-secondary);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24.781px;
+
+  padding: 200px;
+}
+
+.emptyState img {
+  width: 132px;
+  height: 125px;
+}
+
+.emptyStateHeight {
+  height: 62.4rem;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -91,6 +117,7 @@ header h1 {
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
+  color: white;
 }
 
 .search input::placeholder {
@@ -139,6 +166,8 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
+  max-height: 66.8rem;
+  overflow-y: scroll;
 }
 
 table * {
@@ -150,7 +179,7 @@ table th {
   background-color: var(--table-th-color);
   text-align: left;
   font-weight: normal;
-  padding: 1.5rem;
+  padding: 1.5rem 4rem;
 
   font-size: 20px;
   font-style: normal;

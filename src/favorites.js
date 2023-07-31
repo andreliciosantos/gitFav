@@ -7,7 +7,7 @@ export class Favorites {
   }
 
   load() {
-    this.entries = [
+    const entries = [
       {
       login: 'andreliciosantos',
       name: "Andrelicio Santos",
@@ -21,6 +21,7 @@ export class Favorites {
       followers: '12000'
       }
     ]
+    this.entries = entries
   }
 
   delete(user) {
@@ -37,7 +38,6 @@ export class FavoritesView extends Favorites {
 
     this.tbody = this.root.querySelector('table tbody')
 
-    
     this.update()
   }
 
@@ -60,9 +60,14 @@ export class FavoritesView extends Favorites {
           this.delete(user)
         }
       }
-
       this.tbody.append(row)
     })
+
+    const checkIfHaveEntries = this.entries.length
+    if(checkIfHaveEntries == 0){
+      const emptyPage = this.emptyPage()
+      this.tbody.append(emptyPage)
+    }   
   }
 
   createRow() {
@@ -87,6 +92,24 @@ export class FavoritesView extends Favorites {
       </td>
     ` 
     return tr
+  }
+
+  emptyPage() {
+    const emptyPage = document.createElement('tr')
+      emptyPage.innerHTML = `
+        <td class="emptyState">
+          <img src="/assets/cartoonStar.svg" alt="">
+          Nenhum favorito ainda
+        </td>
+        <td class="emptyStateHeight">
+        </td>
+        <td class="Followers">
+        </td>
+        <td>
+        </td>
+      `
+
+    return emptyPage
   }
 
   removeAllTr() {
