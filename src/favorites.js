@@ -1,33 +1,59 @@
+export class GithubUser {
+  static search(username) {
+    const endpoint = `https://api.github.com/users/${username}`
+
+    return fetch(endpoint).then(data => data.json())
+    .then(({ login, name, public_repos, followers }) => ({
+      login,
+      name,
+      public_repos,
+      followers
+    }))
+  }
+}
+
+
 // classe qe vai conter a lógica dos dados
 // como os dados serão estruturados
 export class Favorites {
   constructor(root) {
     this.root = document.querySelector(root)
     this.load()
+
+    GithubUser.search('andreliciosantos').then(user => console.log(user))
   }
 
   load() {
-    const entries = [
-      {
-      login: 'andreliciosantos',
-      name: "Andrelicio Santos",
-      public_repos: '15',
-      followers: '12000'
-      },
-      {
-      login: 'diego3g',
-      name: "Diego Fernandes",
-      public_repos: '15',
-      followers: '12000'
+    this.entries = JSON.parse(localStorage.getItem('@github-favorites:')) || []
+  }
+
+  save() {
+    localStorage.setItem('@github-favorites:', JSON.stringify(this.entries))
+  }
+
+  async add(username) {
+    try {
+      const user = await GithubUser.search(username)
+      console.log(user)
+
+      if(user.login === undefined) {
+        throw new Error('User not found')
       }
-    ]
-    this.entries = entries
+
+      this.entries = [...this.entries, user]
+      this.update()
+      this.save()
+      
+    } catch(error){
+      alert(error.message)
+    }
   }
 
   delete(user) {
     // Higher-order function -> filter
     this.entries = this.entries.filter(entry => entry.login !== user.login)
     this.update()
+    this.save()
   }
 }
 
@@ -39,6 +65,15 @@ export class FavoritesView extends Favorites {
     this.tbody = this.root.querySelector('table tbody')
 
     this.update()
+    this.onAdd()
+  }
+
+  onAdd() {
+    const addButton = this.root.querySelector('.search button')
+    addButton.onclick = () => {
+      const { value } = this.root.querySelector('.search input')
+      this.add(value)
+    }
   }
 
   update() {
@@ -62,12 +97,7 @@ export class FavoritesView extends Favorites {
       }
       this.tbody.append(row)
     })
-
-    const checkIfHaveEntries = this.entries.length
-    if(checkIfHaveEntries == 0){
-      const emptyPage = this.emptyPage()
-      this.tbody.append(emptyPage)
-    }   
+    this.checkIfPageEmpty() 
   }
 
   createRow() {
@@ -94,7 +124,7 @@ export class FavoritesView extends Favorites {
     return tr
   }
 
-  emptyPage() {
+  checkIfPageEmpty() {
     const emptyPage = document.createElement('tr')
       emptyPage.innerHTML = `
         <td class="emptyState">
@@ -108,8 +138,11 @@ export class FavoritesView extends Favorites {
         <td>
         </td>
       `
-
-    return emptyPage
+    const checkIfHaveEntries = this.entries.length
+    
+    if(checkIfHaveEntries == 0){
+      this.tbody.append(emptyPage)
+    }
   }
 
   removeAllTr() {
